@@ -12,4 +12,5 @@ with open('resale-flat-prices.csv', 'r') as csv_file:
                 floorArea = float(line[6])
                 floorArea = math.ceil(1.1 * floorArea) 
                 line[6] = str(floorArea)
+                
             csv_writer.writerow(line)
