@@ -3,7 +3,7 @@ import csv
 with open('resale-flat-prices.csv', 'r') as csv_file:
     csv_reader = csv.reader(csv_file)
 
-    with open('q1-ouput.csv', 'w', newline='') as output:
+    with open('q1-output.csv', 'w', newline='') as output:
         csv_writer = csv.writer(output)
 
         for line in csv_reader:
