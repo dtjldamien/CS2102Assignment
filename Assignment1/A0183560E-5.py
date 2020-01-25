@@ -9,7 +9,7 @@ with open('resale-flat-prices.csv', 'r') as csv_file:
 
         for line in csv_reader:
             if line[1] == 'YISHUN':
-                floorArea = math.ceil(1.1 * int(line[6]))
+                floorArea = math.ceil(0.1 * int(line[6])+ int(line[6]))
                 line[6] = str(floorArea)
                 
             csv_writer.writerow(line)
