@@ -11,6 +11,7 @@ with open('resale-flat-prices.csv', 'r') as csv_file:
         if row[1] == 'BISHAN':
             listAll.append(row)
 
+    # takes awhile to run due to O(n^2) time complexity
     for x in listAll:
         xResalePrice = float(x[9])
         xFloorArea = float(x[6])

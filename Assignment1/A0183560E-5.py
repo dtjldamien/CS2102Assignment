@@ -9,6 +9,7 @@ with open('resale-flat-prices.csv', 'r') as csv_file:
 
         for line in csv_reader:
             if line[1] == 'YISHUN':
+                # float precision error in python would affect math.ceil values
                 floorArea = math.ceil(0.1 * int(line[6])+ int(line[6]))
                 line[6] = str(floorArea)
                 
