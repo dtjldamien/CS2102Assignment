@@ -1,0 +1,3 @@
+C:/Users/dtjld/Desktop/CS2102Assignment/Assignment3/
+
+C:/Users/dtjld/Desktop/CS2102Assignment/Assignment3/Misc/load-db1.sql
