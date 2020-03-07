@@ -1,3 +1,5 @@
-C:/Users/dtjld/Desktop/CS2102Assignment/Assignment3/
+C:/Users/dtjld/Desktop/CS2102Assignment/Assignment3/answers.sql
+
+C:/Users/dtjld/Desktop/CS2102Assignment/Assignment3/test1.sql
 
 C:/Users/dtjld/Desktop/CS2102Assignment/Assignment3/Misc/load-db1.sql
