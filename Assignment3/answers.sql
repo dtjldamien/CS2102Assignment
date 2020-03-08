@@ -44,9 +44,12 @@ Question 4
 Find all managers who are not supervising any project.
 */
 create view v4 (eid)  as
+select eid
+from Managers M
+except
 select M.eid
-from Managers M left join Projects P
-on M.eid = P.eid
+from Managers M inner join Projects P
+on (M.eid = P.eid)
 ;
 
 /* 
@@ -57,19 +60,22 @@ Exclude engineers who do not work on any project.
 create view v5  (eid) as
 select distinct eid
 from Works W
-where hours <= 1
+group by eid
+having max(hours) <= 1
 ;
 
 /* 
 Question 6 
 For each employee, output (eid, num), where eid is the employee's identifier,
 and num is defined as follows.
-	- if the employee is a manager, then num denote the number of departments managed by that manager,
-	- if the employee is an engineer, then num denote the number of projects that the engineer works on,
+	- if the employee is a manager, 
+	then num denote the number of departments managed by that manager,
+	- if the employee is an engineer, 
+	then num denote the number of projects that the engineer works on,
 	- otherwise, num should have a value of 0.
 */
 create view v6  (eid, num) as
-select 1,1
+select 1
 ;
 
 /* 
