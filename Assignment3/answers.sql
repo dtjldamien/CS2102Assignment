@@ -75,7 +75,17 @@ and num is defined as follows.
 	- otherwise, num should have a value of 0.
 */
 create view v6  (eid, num) as
-select 1
+select E.eid, case
+	when W.eid is not null
+	then count(*)
+	when D.eid is not null
+	then count(*)
+	else 0
+	end
+from Employees E 
+full outer join Works W on E.eid = W.eid 
+full outer join Departments D on E.eid = D.eid
+group by W.eid, D.eid, E.eid	
 ;
 
 /* 
