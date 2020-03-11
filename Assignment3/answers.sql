@@ -95,8 +95,14 @@ Where eid and eid2 are the identifiers of the only two engineers
 who work on the project with identifier pid  such that eid < eid2.
 */
 create view v7  (pid, eid, eid2) as
-select 1,1,1
-;
+select W1.pid, W1.eid, W2.eid
+from Works W1 inner join Works W2 on (W1.pid = W2.pid and W1.eid < W2.eid)
+where W1.pid in (
+	select W1.pid
+	from Works W1
+	group by W1.pid
+	having count(W1.pid) = 2
+);
 
 /* 
 Question 8 
@@ -105,7 +111,9 @@ that have some employee who belongs to that department and specializes in area A
 The number reported should be 0 if none of the employees specialize in A.
 */
 create view v8  (aid,num) as
-select '1',1
+select A.aid, count(distinct E.did)
+from Areas A left join Specializes S on A.aid = S.aid left join Employees E on S.eid = E.eid
+group by A.aid
 ;
 
 /* 
@@ -113,21 +121,35 @@ Question 9
 We say that a department D is managing a project P
 if the manager who is supervising P belongs to D.
 Find projects where the number of engineers who work on that project
-is more than the number of employees who belong to the department that is managing that project.
+is more than the number of employees who belong to the department
+that is managing that project.
 */
 create view v9  (pid) as
-select 1
-;
+select P.pid
+from Projects P left join Employees E1 on P.eid = E1.eid 
+right join Departments D on D.did = E1.did 
+left join Works W on W.pid = P.pid
+group by P.pid, D.did
+having count(W.eid) > 
+	(select count(E2.eid)
+	from Employees E2
+	where E2.did = D.did
+	group by E2.did
+);
 
 /* 
 Question 10 
-We say that a manager M manages an engineer E if E belongs to a department that is managed by M.
-We say that a manager M supervises an engineer E if E works on some project that is supervised by M.
-We say that a manager M is controlling if for every engineer E that is managed by M,
-either E is not supervised by any manager or E is supervised by only M and no other manager.
-Find all controlling managers. Include managers who do not manage any engineers.*/
+We say that a manager M manages an engineer E
+if E belongs to a department that is managed by M.
+We say that a manager M supervises an engineer E 
+if E works on some project that is supervised by M.
+We say that a manager M is controlling 
+if for every engineer E that is managed by M,
+either E is not supervised by any manager or 
+E is supervised by only M and no other manager.
+Find all controlling managers. 
+Include managers who do not manage any engineers.
+*/
 create view v10 (eid)  as
 select 1
 ;
-
-
