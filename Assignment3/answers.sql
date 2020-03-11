@@ -96,7 +96,8 @@ who work on the project with identifier pid  such that eid < eid2.
 */
 create view v7  (pid, eid, eid2) as
 select W1.pid, W1.eid, W2.eid
-from Works W1 inner join Works W2 on (W1.pid = W2.pid and W1.eid < W2.eid)
+from Works W1 
+inner join Works W2 on (W1.pid = W2.pid and W1.eid < W2.eid)
 where W1.pid in (
 	select W1.pid
 	from Works W1
@@ -112,7 +113,9 @@ The number reported should be 0 if none of the employees specialize in A.
 */
 create view v8  (aid,num) as
 select A.aid, count(distinct E.did)
-from Areas A left join Specializes S on A.aid = S.aid left join Employees E on S.eid = E.eid
+from Areas A 
+left join Specializes S on A.aid = S.aid 
+left join Employees E on S.eid = E.eid
 group by A.aid
 ;
 
@@ -178,4 +181,4 @@ where exists (
     from ManagerSupervisesEngineer S
     where M.meid <> S.meid and M.eeid = S.eeid
 )
-;;
+;
