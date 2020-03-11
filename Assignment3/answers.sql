@@ -151,5 +151,31 @@ Find all controlling managers.
 Include managers who do not manage any engineers.
 */
 create view v10 (eid)  as
-select 1
-;
+-- list of engineers and their department manager
+with ManagerManagesEngineer as (
+    select D.eid as meid, E.eid as eeid
+    from Engineers N 
+	left join Employees E on N.eid = E.eid 
+	left join Departments D on D.did = E.did
+), 
+-- list of engineers and their project supervisors
+ManagerSupervisesEngineer as (
+    select P.eid as meid, W.eid as eeid
+    from Employees E 
+	left join Works W on W.eid = E.eid
+	left join Projects P on W.pid = P.pid
+    where not W.eid = P.eid
+)
+-- all managers
+select M.eid
+from Managers M
+except
+-- not controlling managers
+select M.meid
+from ManagerManagesEngineer M
+where exists (
+    select S.meid
+    from ManagerSupervisesEngineer S
+    where M.meid <> S.meid and M.eeid = S.eeid
+)
+;;
